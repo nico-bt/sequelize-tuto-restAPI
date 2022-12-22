@@ -12,6 +12,7 @@ app.use(express.json())
 
 // Routes
 app.use(require("./routes/projects.routes"))
+app.use(require("./routes/tasks.routes"))
 
 app.get("/", (req, res)=>{
     res.send("Home page")

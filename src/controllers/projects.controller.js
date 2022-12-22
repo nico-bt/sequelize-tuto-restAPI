@@ -1,4 +1,3 @@
-const { where } = require("sequelize")
 const Project = require("../models/Project")
 
 
