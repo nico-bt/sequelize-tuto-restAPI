@@ -1,4 +1,5 @@
 const Project = require("../models/Project")
+const Task = require("../models/Task")
 
 
 const getAllProjects = async (req, res) => {
@@ -78,5 +79,18 @@ const getProject = async (req, res) => {
     }
 }
 
+// All the tasks that belong to a specific project
+const getProjectTasks = async (req, res) => {
+    const id = req.params.id
+    try {
+        const projectTasks = await Task.findAll({
+            where: { projectId: id }
+        })
+        res.json(projectTasks)
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+}
 
-module.exports = {getAllProjects, createProject, deleteProject, updateProject, getProject}
+
+module.exports = {getAllProjects, createProject, deleteProject, updateProject, getProject, getProjectTasks}
