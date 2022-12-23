@@ -36,11 +36,25 @@ const deleteTask = async (req, res) => {
 } 
 
 const updateTask = async (req, res) => {
-
+    const id = req.params.id
+    try {
+        const task = await Task.findByPk(id)
+        task.set(req.body)
+        await task.save() 
+        res.json(task)
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
 } 
 
 const getTask = async (req, res) => {
-
+    const id = req.params.id
+    try {
+        const task = await Task.findByPk(id)
+        res.json(task)
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
 } 
 
 
