@@ -1,10 +1,25 @@
+const { Sequelize } = require("sequelize")
 const Project = require("../models/Project")
 const Task = require("../models/Task")
 
 
 const getAllProjects = async (req, res) => {
+    let filter = {}
+    const q = req.query.q
+    
+    if(q) {
+        // Filter by name that starts with query
+        filter = {
+            where: {
+                name: {
+                    [Sequelize.Op.like]: `${q}%`
+                }
+            }
+        }
+    }
+
     try {
-        const projects = await Project.findAll()
+        const projects = await Project.findAll(filter)
         res.json(projects)
     } catch (error) {
         console.log(error)
